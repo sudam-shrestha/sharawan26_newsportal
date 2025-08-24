@@ -15,8 +15,8 @@
                     data-feather="briefcase"></i><span>Company</span></a>
         </li>
 
-        <li class="dropdown">
-            <a href="{{ route('dashboard') }}" class="nav-link"><i data-feather="tag"></i><span>Category</span></a>
+        <li class="dropdown {{ Request::routeIs('admin.category*') ? 'active' : '' }}">
+            <a href="{{ route('admin.category.index') }}" class="nav-link"><i data-feather="tag"></i><span>Category</span></a>
         </li>
 
         <li class="dropdown">
