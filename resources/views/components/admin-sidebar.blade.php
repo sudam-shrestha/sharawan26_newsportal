@@ -16,11 +16,13 @@
         </li>
 
         <li class="dropdown {{ Request::routeIs('admin.category*') ? 'active' : '' }}">
-            <a href="{{ route('admin.category.index') }}" class="nav-link"><i data-feather="tag"></i><span>Category</span></a>
+            <a href="{{ route('admin.category.index') }}" class="nav-link"><i
+                    data-feather="tag"></i><span>Category</span></a>
         </li>
 
-        <li class="dropdown">
-            <a href="{{ route('dashboard') }}" class="nav-link"><i data-feather="folder"></i><span>Article</span></a>
+        <li class="dropdown {{ Request::routeIs('admin.article*') ? 'active' : '' }}">
+            <a href="{{ route('admin.article.index') }}" class="nav-link"><i
+                    data-feather="folder"></i><span>Article</span></a>
         </li>
     </ul>
 </aside>
