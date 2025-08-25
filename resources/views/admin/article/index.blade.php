@@ -31,8 +31,8 @@
                                             {{ $article->title }}
                                         </td>
                                         <td>
-                                            <img height="80" src="{{ asset($article->logo) }}"
-                                                alt="{{ $article->name }}">
+                                            <img height="80" src="{{ asset($article->image) }}"
+                                                alt="{{ $article->slug }}">
                                         </td>
                                         <td>
                                             {{ $article->views }}

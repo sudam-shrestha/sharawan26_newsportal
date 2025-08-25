@@ -57,7 +57,7 @@ class ArticleController extends Controller
         $article->categories()->attach($request->categories);
 
         toast('Article Created Successfully', 'success');
-        return redirect()->route('admin.article.index');
+        return redirect()->route('admin.article.create');
     }
 
     /**
@@ -74,7 +74,8 @@ class ArticleController extends Controller
     public function edit(string $id)
     {
         $article = Article::findOrFail($id);
-        return view('admin.article.edit', compact('article'));
+        $categories = Category::all();
+        return view('admin.article.edit', compact('article', 'categories'));
     }
 
     /**
@@ -83,25 +84,28 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "name" => "required|max:50",
-            "email" => "required|email",
-            "phone" => "required|digits:10",
-            "logo" => "nullable|image|mimes:jpg,png,jpeg,avif|max:1024"
+            "title" => "required|max:255",
+            "slug" => "required|max:255",
+            "content" => "required",
+            "categories" => "required",
+            "image" => "nullable|mimes:jpg,png,jpeg,avif|max:1024"
         ]);
 
         $article = Article::findOrFail($id);
-        $article->name = $request->name;
-        $article->email = $request->email;
-        $article->phone = $request->phone;
-        $article->facebook = $request->facebook;
-        $article->instagram = $request->instagram;
-        $file = $request->logo;
+        $article->title = $request->title;
+        $article->slug = $request->slug;
+        $article->content = $request->content;
+        $article->meta_keywords = $request->meta_keywords;
+        $article->meta_description = $request->meta_description;
+        $file = $request->image;
         if ($file) {
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $file->move('images', $file_name);
-            $article->logo = "images/$file_name";
+            $article->image = "images/$file_name";
         }
         $article->save();
+
+        $article->categories()->sync($request->categories);
 
         toast('Article Updated Successfully', 'success');
         return redirect()->back();
