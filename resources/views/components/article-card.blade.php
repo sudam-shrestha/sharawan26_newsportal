@@ -1,0 +1,12 @@
+@props(['article'])
+<a href="" class="grid grid-cols-3 rounded-md overflow-hidden items-center gap-2 shadow hover:shadow-lg">
+    <img class="w-full h-[90px] object-cover" src="{{ asset($article->image) }}" alt="{{ $article->slug }}">
+    <div class="col-span-2">
+        <h3 class="font-semibold">
+            {{ $article->title }}
+        </h3>
+        <p class="text-xs">
+            {{ Anuzpandey\LaravelNepaliDate\LaravelNepaliDate::from($article->created_at)->toNepaliDate() }}
+        </p>
+    </div>
+</a>
