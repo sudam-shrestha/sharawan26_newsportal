@@ -1,4 +1,9 @@
 <header class="sticky top-0 z-40 bg-white">
+    <div class="text-white text-right px-6 bg-[var(--primary)] py-1 text-xs">
+        <a href="{{ route('login') }}">
+            login
+        </a>
+    </div>
     <div class="container flex items-center justify-between py-5">
         <a href="{{ route('home') }}">
             <img class="h-[100px]" src="{{ asset($company->logo) }}" alt="Logo">
@@ -20,7 +25,7 @@
             </a>
 
             @foreach ($categories as $category)
-                <a href="" class="hover:text-[var(--secondary)]">
+                <a href="{{ route('category', $category->slug) }}" class="hover:text-[var(--secondary)]">
                     {{ $category->title }}
                 </a>
             @endforeach

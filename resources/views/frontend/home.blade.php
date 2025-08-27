@@ -1,11 +1,11 @@
-<x-frontend-layout>
+<x-frontend-layout title="Home" description="home page descrrrrrrrrrrription" keywords="home page keywords">
 
     <section>
         <div class="container py-5 grid grid-cols-3 gap-5">
             <div class="col-span-2">
 
                 <div class="shadow hover:shadow-lg mb-4">
-                    <a href="">
+                    <a href="{{ route('article', $latest_article->slug) }}">
                         <img class="w-full h-[400px] object-cover" src="{{ asset($latest_article->image) }}"
                             alt="">
                         <div class="p-2">
