@@ -10,6 +10,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
@@ -17,12 +18,6 @@ class ApiController extends Controller
     {
         $categories = Category::all();
         return CategoryResource::collection($categories);
-    }
-
-    public function company()
-    {
-        $company = Company::first();
-        return new CompanyResource($company);
     }
 
     public function trending_articles()
@@ -35,5 +30,30 @@ class ApiController extends Controller
     {
         $articles = Article::latest()->take(3)->get();
         return ArticleResource::collection($articles);
+    }
+
+    public function category_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "title" => "required|max:50",
+            "slug" => "required|max:50",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        $category = new Category();
+        $category->title = $request->title;
+        $category->slug = $request->slug;
+        $category->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Category added successfully'
+        ]);
     }
 }
